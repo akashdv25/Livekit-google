@@ -1,0 +1,17 @@
+Connecting to a LiveKit room (await ctx.connect()) where the audio/video streams happen.
+
+Creating an Assistant agent with instructions on how to handle the conversation (polite, confirm details, end call on request, detect voicemail).
+
+Setting up an AgentSession that connects:
+STT (speech-to-text) using Deepgram
+LLM (chat AI) using OpenAI GPT-4o
+TTS (text-to-speech) using Cartesia
+VAD (voice activity detection) using Silero
+
+Noise cancellation
+
+Starting the session on the connected room, listening to audio from the caller and responding via TTS.
+
+Handling outbound calls if a phone number is provided in job metadata, creating a SIP participant via LiveKit API.
+
+The agent can trigger actions like end_call() to hang up (by deleting the LiveKit room).

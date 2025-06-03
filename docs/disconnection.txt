@@ -1,0 +1,14 @@
+Disconnection
+Call Room.disconnect() to leave the room. If you terminate the application without calling disconnect(), your participant disappears after 15 seconds.
+
+Automatic disconnection
+Participants might get disconnected from a room due to server-initiated actions. 
+This can happen if the room is closed using the DeleteRoom API or if a participant is removed with the RemoveParticipant API.
+
+In such cases, a Disconnected event is emitted, providing a reason for the disconnection. Common disconnection reasons include:
+
+DUPLICATE_IDENTITY: Disconnected because another participant with the same identity joined the room.
+ROOM_DELETED: The room was closed via the DeleteRoom API.
+PARTICIPANT_REMOVED: Removed from the room using the RemoveParticipant API.
+JOIN_FAILURE: Failure to connect to the room, possibly due to network issues.
+ROOM_CLOSED: The room was closed because all Standard and Ingress participants left.

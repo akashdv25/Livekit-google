@@ -1,0 +1,21 @@
+https://docs.livekit.io/home/client/connect/
+
+
+Overview
+Your application will connect to LiveKit using the Room object, which is the base construct in LiveKit. Think of it like a conference call — multiple participants can join a room and share realtime audio, video, and data with each other.
+
+Depending on your application, each participant might represent a user, an AI agent, a connected device, or some other program you've created. There is no limit on the number of participants in a room and each participant can publish audio, video, and data to the room.
+
+Connecting to a room
+Rooms are identified by their name, which can be any unique string. The room itself is created automatically when the first participant joins, and is closed when the last participant leaves.
+
+You must use a participant identity when you connect to a room. This identity can be any string, but must be unique to each participant.
+
+Connecting to a room always requires two parameters:
+
+wsUrl: The WebSocket URL of your LiveKit server.
+LiveKit Cloud users can find theirs on the Project Settings page.
+Self-hosted users who followed this guide can use ws://localhost:7880 while developing.
+token: A unique access token which each participant must use to connect.
+The token encodes the room name, the participant's identity, and their permissions.
+For help generating tokens, see this guide.

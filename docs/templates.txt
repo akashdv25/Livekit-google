@@ -1,0 +1,15 @@
+https://docs.livekit.io/home/cli/templates/
+
+
+The LiveKit CLI can help you bootstrap applications from a number of convenient template repositories, using your project credentials to set up required environment variables and other configuration automatically. To create an application from a template, run the following:
+
+lk app create --template <template_name> my-app
+
+Then follow the CLI prompts to finish your setup.
+
+The --template flag may be omitted to see a list of all available templates, or can be chosen from a selection of our first-party templates:
+
+voice-pipeline-agent-python	Python	          Voice agent using modular TTS, LLM, and STT capabilities
+
+multimodal-agent-python	Python	              Multimodal agent with speech-to-speech and transcription capabilities
+

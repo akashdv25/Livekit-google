@@ -1,0 +1,6 @@
+src
+.env
+myvenv/
+call_logs/
+token.json
+credentials.json

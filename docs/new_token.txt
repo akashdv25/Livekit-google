@@ -1,0 +1,25 @@
+Creating a token
+https://docs.livekit.io/home/get-started/authentication/#creating-a-token
+
+This token encodes the identity of a participant, name of the room, capabilities and permissions. Access tokens are JWT-based and signed with your API secret to prevent forgery.
+refer this before creating a token
+
+Access tokens also carry an expiration time, after which the server will reject connections with that token. Note: expiration time only impacts the initial connection, and not 
+subsequent reconnects.
+
+from livekit import api
+import os
+
+token = api.AccessToken(os.getenv('LIVEKIT_API_KEY'), os.getenv('LIVEKIT_API_SECRET')) \
+    .with_identity("identity") \
+    .with_name("name") \
+    .with_grants(api.VideoGrants(
+        room_join=True,
+        room="my-room",
+    )).to_jwt()
+
+
+Updating permissions
+A participant's permissions can be updated at any time, even after they've already connected. This is useful in applications where the participant's role could change during the session, such as in a participatory livestream.
+
+It's possible to issue a token with canPublish: false initially, and then updating it to canPublish: true during the session. Permissions can be changed with the UpdateParticipant server API.    

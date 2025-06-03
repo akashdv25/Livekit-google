@@ -1,0 +1,50 @@
+Agent dispatch
+Specifying how and when your agents are assigned to rooms.
+https://docs.livekit.io/agents/worker/agent-dispatch/
+
+
+Dispatch is the process of assigning an agent to a room.
+LiveKit server manages this process as part of the worker lifecycle.
+LiveKit optimizes dispatch for high concurrency and low latency, typically supporting hundred of thousands of new connections per second with a max dispatch time under 150 ms.
+
+Automatic agent dispatch
+By default, an agent is automatically dispatched to each new room. Automatic dispatch is the best option if you want to assign the same agent to all new participants.
+
+Explicit agent dispatch 
+Explicit dispatch is available for greater control over when and how agents join rooms. This approach leverages the same worker systems, allowing you to run agent workers in the same way.
+
+To use explicit dispatch, set the agent_name field in the WorkerOptions:
+
+opts = WorkerOptions(
+    ...
+    agent_name="test-agent",
+)
+
+Automatic dispatch is disabled if the agent_name property is set.
+
+Dispatch via API 
+Agent workers with the agent_name set can be explicitly dispatched to a room via AgentDispatchService.
+
+import asyncio
+from livekit import api
+
+room_name = "my-room"
+agent_name = "test-agent"
+
+async def create_explicit_dispatch():
+    lkapi = api.LiveKitAPI()
+    dispatch = await lkapi.agent_dispatch.create_dispatch(
+        api.CreateAgentDispatchRequest(
+            agent_name=agent_name, room=room_name, metadata='{"user_id": "12345"}'
+        )
+    )
+    print("created dispatch", dispatch)
+
+    dispatches = await lkapi.agent_dispatch.list_dispatch(room_name=room_name)
+    print(f"there are {len(dispatches)} dispatches in {room_name}")
+    await lkapi.aclose()
+
+asyncio.run(create_explicit_dispatch())
+
+
+The room, my-room, is automatically created during dispatch if it doesn't already exist, and the worker assigns test-agent to it.
